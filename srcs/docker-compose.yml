@@ -5,7 +5,7 @@ services:
     ports:
       - "443:443"
     volumes:
-      - ./web:/var/www/html
+      - wordpress_data:/var/www/html
     networks:
       - inception_network
     restart: always
@@ -17,8 +17,7 @@ services:
     container_name: wordpress-php
     build: ./requirements/wordpress/.
     volumes:
-      - ./web:/var/www/html
-      #- /home/kmiyazaw/data/web:/var/www/html
+      - wordpress_data:/var/www/html
     networks:
       - inception_network
     restart: always
@@ -30,13 +29,28 @@ services:
     container_name: mariadb
     build: ./requirements/mariadb/.
     volumes:
-      - ./database:/var/lib/mysql
-      #- /home/kmiyazaw/data/database:/var/lib/mysql
+      - mariadb_data:/var/lib/mysql
     networks:
       - inception_network
     restart: always
     env_file:
       - .env
+
+volumes:
+  mariadb_data:
+    driver: local
+    driver_opts: 
+      type: none
+      device: /home/kmiyazaw/data/database
+      #device: ./database
+      o: bind
+  wordpress_data:
+    driver: local
+    driver_opts: 
+      type: none
+      device: /home/kmiyazaw/data/web
+      #device: ./web
+      o: bind
 
 networks:
   inception_network:

@@ -11,4 +11,4 @@ if [ ! -f /etc/ssl/certs/server.crt ] || [ ! -f /etc/ssl/private/server.key ]; t
 fi
 
 # nginx 実行
-exec nginx -g "daemon off;"
+exec "$@"

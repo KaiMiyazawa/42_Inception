@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:11
 
 RUN apt-get update && apt-get install -y \
 	nginx \
@@ -14,5 +14,5 @@ RUN chmod +x script.sh
 
 EXPOSE 443
 
-ENTRYPOINT [ "/usr/bin/tini", "--" ]
-CMD ["./script.sh"]
+ENTRYPOINT [ "/usr/bin/tini", "--", "./script.sh" ]
+CMD ["nginx", "-g", "daemon off;"]

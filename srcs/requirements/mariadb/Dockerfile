@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:11
 
 RUN apt-get update && apt-get install -y \
 	mariadb-server \
@@ -15,5 +15,5 @@ RUN mkdir -p /run/mysqld && chmod +x script.sh
 
 EXPOSE 3306
 
-ENTRYPOINT [ "/usr/bin/tini", "--" ]
-CMD ["./script.sh"]
+ENTRYPOINT [ "/usr/bin/tini", "--", "./script.sh" ]
+CMD ["mysqld"]

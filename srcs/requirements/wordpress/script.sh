@@ -50,4 +50,4 @@ else
 fi
 
 # --- 3) PHP-FPMをフォアグラウンドで起動 ---
-exec php-fpm7.4 -F
+exec "$@"

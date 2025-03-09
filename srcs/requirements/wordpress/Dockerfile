@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:11
 
 RUN apt-get update && apt-get install -y \
 	php7.4-fpm \
@@ -21,5 +21,5 @@ RUN chmod +x script.sh
 
 EXPOSE 9000
 
-ENTRYPOINT [ "/usr/bin/tini", "--" ]
-CMD ["./script.sh"]
+ENTRYPOINT [ "/usr/bin/tini", "--", "./script.sh" ]
+CMD ["php-fpm7.4", "-F"]
