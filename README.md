@@ -77,3 +77,5 @@ This is one of the 42tokyo's projects. This repository is about a Docker lesson.
      show tables;
      select * from wp_users;
      ```
+5. volumeの削除
+    - `docker volume rm srcs_mariadb_data srcs_wordpress_data`
