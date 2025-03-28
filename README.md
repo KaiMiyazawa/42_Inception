@@ -11,7 +11,7 @@ This is one of the 42tokyo's projects. This repository is about a Docker lesson.
   例: 
   ```dockerfile
   CMD ["nginx", "-g", "daemon off;"]
-  CMD ["php-fpm8.2", "-F"]
+  CMD ["php-fpm7.4", "-F"]
   ```
 - `kmiyazaw.42.fr` の名前解決を追加
 
