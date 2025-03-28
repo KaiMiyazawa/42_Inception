@@ -1,0 +1,5 @@
+.gitignore
+srcs/reqirements/.env
+srcs/.env
+
+*.pdf
