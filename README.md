@@ -8,19 +8,19 @@ This is one of the 42tokyo's projects. This repository is about a Docker lesson.
 graph TB
     User[User Browser] -->|HTTPS:443| nginx[Nginx Container]
     
-    subgraph "Docker Network: inception_network"
+    subgraph network[Docker Network: inception_network]
         nginx -->|FastCGI:9000| wordpress[WordPress-PHP Container]
         wordpress -->|MySQL:3306| mariadb[MariaDB Container]
     end
     
-    subgraph "Host System"
+    subgraph host[Host System]
         hostdata[/home/kmiyazaw/data/]
         hostdata --> database[database/]
         hostdata --> web[web/]
         etchosts[/etc/hosts]
     end
     
-    subgraph "Docker Volumes"
+    subgraph volumes[Docker Volumes]
         database -.->|bind mount| mariadb_data[(mariadb_data)]
         web -.->|bind mount| wordpress_data[(wordpress_data)]
     end
