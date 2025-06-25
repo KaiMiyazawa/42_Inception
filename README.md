@@ -7,29 +7,20 @@ This is one of the 42tokyo's projects. This repository is about a Docker lesson.
 ```mermaid
 graph TB
     User[User Browser] -->|HTTPS:443| nginx[Nginx Container]
+    nginx -->|FastCGI:9000| wordpress[WordPress-PHP Container]
+    wordpress -->|MySQL:3306| mariadb[MariaDB Container]
     
-    subgraph network[Docker Network: inception_network]
-        nginx -->|FastCGI:9000| wordpress[WordPress-PHP Container]
-        wordpress -->|MySQL:3306| mariadb[MariaDB Container]
-    end
+    hostdata[/home/kmiyazaw/data/] --> database[database/]
+    hostdata --> web[web/]
     
-    subgraph host[Host System]
-        hostdata[/home/kmiyazaw/data/]
-        hostdata --> database[database/]
-        hostdata --> web[web/]
-        etchosts[/etc/hosts]
-    end
-    
-    subgraph volumes[Docker Volumes]
-        database -.->|bind mount| mariadb_data[(mariadb_data)]
-        web -.->|bind mount| wordpress_data[(wordpress_data)]
-    end
+    database -.->|bind mount| mariadb_data[(mariadb_data)]
+    web -.->|bind mount| wordpress_data[(wordpress_data)]
     
     mariadb_data --> mariadb
     wordpress_data --> wordpress
     wordpress_data --> nginx
     
-    etchosts -.->|DNS Resolution| User
+    etchosts[/etc/hosts] -.->|DNS Resolution| User
     
     classDef container fill:#e1f5fe,stroke:#01579b,stroke-width:2px
     classDef volume fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
