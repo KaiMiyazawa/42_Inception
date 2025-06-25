@@ -2,6 +2,51 @@
 
 This is one of the 42tokyo's projects. This repository is about a Docker lesson.
 
+## Architecture
+
+```mermaid
+graph TB
+    User[User Browser] -->|HTTPS:443| nginx[Nginx Container]
+    
+    subgraph "Docker Network: inception_network"
+        nginx -->|FastCGI:9000| wordpress[WordPress-PHP Container]
+        wordpress -->|MySQL:3306| mariadb[MariaDB Container]
+    end
+    
+    subgraph "Host System"
+        hostdata[/home/kmiyazaw/data/]
+        hostdata --> database[database/]
+        hostdata --> web[web/]
+        etchosts[/etc/hosts]
+    end
+    
+    subgraph "Docker Volumes"
+        database -.->|bind mount| mariadb_data[(mariadb_data)]
+        web -.->|bind mount| wordpress_data[(wordpress_data)]
+    end
+    
+    mariadb_data --> mariadb
+    wordpress_data --> wordpress
+    wordpress_data --> nginx
+    
+    etchosts -.->|DNS Resolution| User
+    
+    classDef container fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef volume fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef host fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    
+    class nginx,wordpress,mariadb container
+    class mariadb_data,wordpress_data volume
+    class hostdata,database,web,etchosts host
+```
+
+**Components:**
+- **Nginx**: Reverse proxy with SSL/TLS termination (port 443)
+- **WordPress-PHP**: PHP-FPM server running WordPress (port 9000)
+- **MariaDB**: Database server (port 3306)
+- **Volumes**: Persistent data storage using bind mounts
+- **Network**: Bridge network for inter-container communication
+
 ---
 
 ## Memo
