@@ -20,7 +20,7 @@ graph TB
     wordpress_data --> wordpress
     wordpress_data --> nginx
     
-    etchosts[/etc/hosts] -.->|DNS Resolution| User
+    etchosts[hosts file] -.->|DNS Resolution| User
     
     classDef container fill:#e1f5fe,stroke:#01579b,stroke-width:2px
     classDef volume fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
